@@ -1,0 +1,134 @@
+fips,locality_name,locality_type,metro_status,rucc_code,rucc_description,population_2020,land_area_sq_mi
+51001,Accomack County,County,Nonmetro,9,"Nonmetro - Urban population of fewer than 5,000, not adjacent to a metro area",33413,449.3
+51003,Albemarle County,County,Metro,3,"Metro - Counties in metro areas of fewer than 250,000 population",112395,720.48
+51005,Alleghany County,County,Nonmetro,6,"Nonmetro - Urban population of 5,000 to 20,000, adjacent to a metro area",15223,446.57
+51007,Amelia County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,13265,355.36
+51009,Amherst County,County,Metro,2,"Metro - Counties in metro areas of 250,000 to 1 million population",31307,473.96
+51011,Appomattox County,County,Metro,2,"Metro - Counties in metro areas of 250,000 to 1 million population",16119,334.22
+51013,Arlington County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,238643,26.0
+51015,Augusta County,County,Metro,3,"Metro - Counties in metro areas of fewer than 250,000 population",77487,967.07
+51017,Bath County,County,Nonmetro,9,"Nonmetro - Urban population of fewer than 5,000, not adjacent to a metro area",4209,529.2
+51019,Bedford County,County,Metro,2,"Metro - Counties in metro areas of 250,000 to 1 million population",79462,760.12
+51021,Bland County,County,Nonmetro,8,"Nonmetro - Urban population of fewer than 5,000, adjacent to a metro area",6270,357.65
+51023,Botetourt County,County,Metro,2,"Metro - Counties in metro areas of 250,000 to 1 million population",33596,541.28
+51025,Brunswick County,County,Nonmetro,8,"Nonmetro - Urban population of fewer than 5,000, adjacent to a metro area",15849,566.35
+51027,Buchanan County,County,Nonmetro,9,"Nonmetro - Urban population of fewer than 5,000, not adjacent to a metro area",20355,502.85
+51029,Buckingham County,County,Nonmetro,8,"Nonmetro - Urban population of fewer than 5,000, adjacent to a metro area",16824,579.62
+51031,Campbell County,County,Metro,2,"Metro - Counties in metro areas of 250,000 to 1 million population",55696,503.26
+51033,Caroline County,County,Nonmetro,8,"Nonmetro - Urban population of fewer than 5,000, adjacent to a metro area",30887,527.37
+51035,Carroll County,County,Nonmetro,6,"Nonmetro - Urban population of 5,000 to 20,000, adjacent to a metro area",29155,474.74
+51036,Charles City County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,6773,182.9
+51037,Charlotte County,County,Nonmetro,8,"Nonmetro - Urban population of fewer than 5,000, adjacent to a metro area",11529,475.3
+51041,Chesterfield County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,364548,423.51
+51043,Clarke County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,14783,175.96
+51045,Craig County,County,Metro,2,"Metro - Counties in metro areas of 250,000 to 1 million population",4892,328.1
+51047,Culpeper County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,52552,379.18
+51049,Cumberland County,County,Nonmetro,8,"Nonmetro - Urban population of fewer than 5,000, adjacent to a metro area",9675,297.47
+51051,Dickenson County,County,Nonmetro,9,"Nonmetro - Urban population of fewer than 5,000, not adjacent to a metro area",14124,330.44
+51053,Dinwiddie County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,27947,503.83
+51057,Essex County,County,Nonmetro,8,"Nonmetro - Urban population of fewer than 5,000, adjacent to a metro area",10599,257.35
+51059,Fairfax County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,1150309,391.02
+51061,Fauquier County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,72972,647.99
+51063,Floyd County,County,Metro,3,"Metro - Counties in metro areas of fewer than 250,000 population",15476,380.92
+51065,Fluvanna County,County,Metro,3,"Metro - Counties in metro areas of fewer than 250,000 population",27249,287.12
+51067,Franklin County,County,Metro,2,"Metro - Counties in metro areas of 250,000 to 1 million population",54477,690.61
+51069,Frederick County,County,Metro,3,"Metro - Counties in metro areas of fewer than 250,000 population",91419,413.13
+51071,Giles County,County,Metro,3,"Metro - Counties in metro areas of fewer than 250,000 population",16787,357.22
+51073,Gloucester County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,38711,217.81
+51075,Goochland County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,24727,282.1
+51077,Grayson County,County,Nonmetro,9,"Nonmetro - Urban population of fewer than 5,000, not adjacent to a metro area",15333,441.79
+51079,Greene County,County,Metro,3,"Metro - Counties in metro areas of fewer than 250,000 population",20552,155.95
+51081,Greensville County,County,Nonmetro,6,"Nonmetro - Urban population of 5,000 to 20,000, adjacent to a metro area",11391,295.38
+51083,Halifax County,County,Nonmetro,6,"Nonmetro - Urban population of 5,000 to 20,000, adjacent to a metro area",34022,817.73
+51085,Hanover County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,109979,467.57
+51087,Henrico County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,334389,233.7
+51089,Henry County,County,Nonmetro,4,"Nonmetro - Urban population of 20,000 or more, adjacent to a metro area",50948,382.35
+51091,Highland County,County,Nonmetro,8,"Nonmetro - Urban population of fewer than 5,000, adjacent to a metro area",2232,415.16
+51093,Isle of Wight County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,38606,315.69
+51095,James City County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,78254,142.3
+51097,King and Queen County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,6608,315.13
+51099,King George County,County,Nonmetro,8,"Nonmetro - Urban population of fewer than 5,000, adjacent to a metro area",26723,179.63
+51101,King William County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,17810,273.91
+51103,Lancaster County,County,Nonmetro,9,"Nonmetro - Urban population of fewer than 5,000, not adjacent to a metro area",10919,133.31
+51105,Lee County,County,Nonmetro,8,"Nonmetro - Urban population of fewer than 5,000, adjacent to a metro area",22173,435.38
+51107,Loudoun County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,420959,515.74
+51109,Louisa County,County,Nonmetro,8,"Nonmetro - Urban population of fewer than 5,000, adjacent to a metro area",37596,495.01
+51111,Lunenburg County,County,Nonmetro,9,"Nonmetro - Urban population of fewer than 5,000, not adjacent to a metro area",11936,431.7
+51113,Madison County,County,Nonmetro,8,"Nonmetro - Urban population of fewer than 5,000, adjacent to a metro area",13837,320.64
+51115,Mathews County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,8533,85.91
+51117,Mecklenburg County,County,Nonmetro,7,"Nonmetro - Urban population of 5,000 to 20,000, not adjacent to a metro area",30319,625.31
+51119,Middlesex County,County,Nonmetro,8,"Nonmetro - Urban population of fewer than 5,000, adjacent to a metro area",10625,130.33
+51121,Montgomery County,County,Metro,3,"Metro - Counties in metro areas of fewer than 250,000 population",99721,386.85
+51125,Nelson County,County,Metro,3,"Metro - Counties in metro areas of fewer than 250,000 population",14775,470.75
+51127,New Kent County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,22945,210.03
+51131,Northampton County,County,Nonmetro,8,"Nonmetro - Urban population of fewer than 5,000, adjacent to a metro area",12282,211.71
+51133,Northumberland County,County,Nonmetro,9,"Nonmetro - Urban population of fewer than 5,000, not adjacent to a metro area",11839,191.43
+51135,Nottoway County,County,Nonmetro,8,"Nonmetro - Urban population of fewer than 5,000, adjacent to a metro area",15642,314.39
+51137,Orange County,County,Nonmetro,6,"Nonmetro - Urban population of 5,000 to 20,000, adjacent to a metro area",36254,340.51
+51139,Page County,County,Nonmetro,8,"Nonmetro - Urban population of fewer than 5,000, adjacent to a metro area",23709,310.02
+51141,Patrick County,County,Nonmetro,8,"Nonmetro - Urban population of fewer than 5,000, adjacent to a metro area",17608,482.96
+51143,Pittsylvania County,County,Nonmetro,4,"Nonmetro - Urban population of 20,000 or more, adjacent to a metro area",60501,969.0
+51145,Powhatan County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,30333,260.2
+51147,Prince Edward County,County,Nonmetro,6,"Nonmetro - Urban population of 5,000 to 20,000, adjacent to a metro area",21849,349.95
+51149,Prince George County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,43010,265.34
+51153,Prince William County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,482204,335.26
+51155,Pulaski County,County,Metro,3,"Metro - Counties in metro areas of fewer than 250,000 population",33800,319.84
+51157,Rappahannock County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,7348,266.37
+51159,Richmond County,County,Nonmetro,9,"Nonmetro - Urban population of fewer than 5,000, not adjacent to a metro area",8923,191.48
+51161,Roanoke County,County,Metro,2,"Metro - Counties in metro areas of 250,000 to 1 million population",96929,250.55
+51163,Rockbridge County,County,Nonmetro,6,"Nonmetro - Urban population of 5,000 to 20,000, adjacent to a metro area",22650,596.55
+51165,Rockingham County,County,Metro,3,"Metro - Counties in metro areas of fewer than 250,000 population",83757,849.8
+51167,Russell County,County,Nonmetro,8,"Nonmetro - Urban population of fewer than 5,000, adjacent to a metro area",25781,473.52
+51169,Scott County,County,Metro,2,"Metro - Counties in metro areas of 250,000 to 1 million population",21576,535.83
+51171,Shenandoah County,County,Nonmetro,6,"Nonmetro - Urban population of 5,000 to 20,000, adjacent to a metro area",44186,508.08
+51173,Smyth County,County,Nonmetro,7,"Nonmetro - Urban population of 5,000 to 20,000, not adjacent to a metro area",29800,451.44
+51175,Southampton County,County,Nonmetro,6,"Nonmetro - Urban population of 5,000 to 20,000, adjacent to a metro area",17996,599.25
+51177,Spotsylvania County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,140032,401.97
+51179,Stafford County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,156927,268.5
+51181,Surry County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,6561,278.95
+51183,Sussex County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,10829,490.24
+51185,Tazewell County,County,Nonmetro,7,"Nonmetro - Urban population of 5,000 to 20,000, not adjacent to a metro area",40429,518.79
+51187,Warren County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,40727,214.57
+51191,Washington County,County,Metro,2,"Metro - Counties in metro areas of 250,000 to 1 million population",53935,561.19
+51193,Westmoreland County,County,Nonmetro,8,"Nonmetro - Urban population of fewer than 5,000, adjacent to a metro area",18477,229.33
+51195,Wise County,County,Nonmetro,7,"Nonmetro - Urban population of 5,000 to 20,000, not adjacent to a metro area",36130,403.44
+51197,Wythe County,County,Nonmetro,6,"Nonmetro - Urban population of 5,000 to 20,000, adjacent to a metro area",28290,461.95
+51199,York County,County,Metro,1,Metro - Counties in metro areas of 1 million population or more,70045,104.7
+51510,Alexandria city,City,Metro,1,Metro - Counties in metro areas of 1 million population or more,159467,14.94
+51520,Bristol city,City,Metro,2,"Metro - Counties in metro areas of 250,000 to 1 million population",17219,12.87
+51530,Buena Vista city,City,Nonmetro,6,"Nonmetro - Urban population of 5,000 to 20,000, adjacent to a metro area",6641,6.44
+51540,Charlottesville city,City,Metro,3,"Metro - Counties in metro areas of fewer than 250,000 population",46553,10.25
+51550,Chesapeake city,City,Metro,1,Metro - Counties in metro areas of 1 million population or more,249422,338.46
+51570,Colonial Heights city,City,Metro,1,Metro - Counties in metro areas of 1 million population or more,18170,7.52
+51580,Covington city,City,Nonmetro,6,"Nonmetro - Urban population of 5,000 to 20,000, adjacent to a metro area",5737,5.47
+51590,Danville city,City,Nonmetro,4,"Nonmetro - Urban population of 20,000 or more, adjacent to a metro area",42590,42.8
+51595,Emporia city,City,Nonmetro,6,"Nonmetro - Urban population of 5,000 to 20,000, adjacent to a metro area",5766,6.63
+51600,Fairfax city,City,Metro,1,Metro - Counties in metro areas of 1 million population or more,24146,6.24
+51610,Falls Church city,City,Metro,1,Metro - Counties in metro areas of 1 million population or more,14658,2.05
+51620,Franklin city,City,Nonmetro,6,"Nonmetro - Urban population of 5,000 to 20,000, adjacent to a metro area",8180,8.28
+51630,Fredericksburg city,City,Metro,1,Metro - Counties in metro areas of 1 million population or more,27982,10.45
+51640,Galax city,City,Nonmetro,6,"Nonmetro - Urban population of 5,000 to 20,000, adjacent to a metro area",6720,8.24
+51650,Hampton city,City,Metro,1,Metro - Counties in metro areas of 1 million population or more,137148,51.46
+51660,Harrisonburg city,City,Metro,3,"Metro - Counties in metro areas of fewer than 250,000 population",51814,17.34
+51670,Hopewell city,City,Metro,1,Metro - Counties in metro areas of 1 million population or more,23033,10.35
+51678,Lexington city,City,Nonmetro,6,"Nonmetro - Urban population of 5,000 to 20,000, adjacent to a metro area",7320,2.5
+51680,Lynchburg city,City,Metro,2,"Metro - Counties in metro areas of 250,000 to 1 million population",79009,48.92
+51683,Manassas city,City,Metro,1,Metro - Counties in metro areas of 1 million population or more,42772,9.84
+51685,Manassas Park city,City,Metro,1,Metro - Counties in metro areas of 1 million population or more,17219,3.03
+51690,Martinsville city,City,Nonmetro,4,"Nonmetro - Urban population of 20,000 or more, adjacent to a metro area",13485,10.96
+51700,Newport News city,City,Metro,1,Metro - Counties in metro areas of 1 million population or more,186247,69.0
+51710,Norfolk city,City,Metro,1,Metro - Counties in metro areas of 1 million population or more,238005,53.27
+51720,Norton city,City,Nonmetro,7,"Nonmetro - Urban population of 5,000 to 20,000, not adjacent to a metro area",3687,7.48
+51730,Petersburg city,City,Metro,1,Metro - Counties in metro areas of 1 million population or more,33458,22.72
+51735,Poquoson city,City,Metro,1,Metro - Counties in metro areas of 1 million population or more,12460,15.36
+51740,Portsmouth city,City,Metro,1,Metro - Counties in metro areas of 1 million population or more,97915,33.3
+51750,Radford city,City,Metro,3,"Metro - Counties in metro areas of fewer than 250,000 population",16070,9.68
+51760,Richmond city,City,Metro,1,Metro - Counties in metro areas of 1 million population or more,226610,59.93
+51770,Roanoke city,City,Metro,2,"Metro - Counties in metro areas of 250,000 to 1 million population",100011,42.52
+51775,Salem city,City,Metro,2,"Metro - Counties in metro areas of 250,000 to 1 million population",25346,14.52
+51790,Staunton city,City,Metro,3,"Metro - Counties in metro areas of fewer than 250,000 population",25750,19.92
+51800,Suffolk city,City,Metro,1,Metro - Counties in metro areas of 1 million population or more,94324,399.17
+51810,Virginia Beach city,City,Metro,1,Metro - Counties in metro areas of 1 million population or more,459470,244.72
+51820,Waynesboro city,City,Metro,3,"Metro - Counties in metro areas of fewer than 250,000 population",22196,14.97
+51830,Williamsburg city,City,Metro,1,Metro - Counties in metro areas of 1 million population or more,15425,8.94
+51840,Winchester city,City,Metro,3,"Metro - Counties in metro areas of fewer than 250,000 population",28120,9.19
