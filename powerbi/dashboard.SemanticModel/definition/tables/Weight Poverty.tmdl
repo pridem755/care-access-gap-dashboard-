@@ -1,0 +1,26 @@
+table 'Weight Poverty'
+	lineageTag: 86a649d3-4d52-452d-a353-184b975f8497
+
+	measure 'Weight Poverty Value' = SELECTEDVALUE('Weight Poverty'[Weight Poverty], 20)
+		formatString: 0
+		lineageTag: 26607a9c-fb97-4d1b-9a2a-ce1282b92dbb
+
+	column 'Weight Poverty'
+		formatString: 0
+		lineageTag: 053480e5-423b-4131-ba5f-0fd0ea1402e1
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition 'Weight Poverty' = calculated
+		mode: import
+		source = GENERATESERIES(0, 50, 5)
+
+	annotation PBI_Id = f5f285a5873643e9b11f58768b77babc
+

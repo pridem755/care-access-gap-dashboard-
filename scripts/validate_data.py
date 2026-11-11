@@ -30,6 +30,16 @@ def file_details(processed_dir: Path) -> list[tuple[str, int, str]]:
 Results = dict[str, list[CheckResult]]
 
 
+def duplicate_report(processed_dir: Path, results: Results) -> tuple[dict[str, int], list[dict[str, str]]] | None:
+    """Return the supply duplicates summary and rows, or None if either file is missing or misshapen."""
+    tables = (config.SITE_TABLE, "supply_duplicates")
+    if not all(name in results and results[name][0].passed for name in tables):
+        return None
+    sites = read_as_text(table_path(processed_dir, config.SITE_TABLE))
+    duplicates = read_as_text(table_path(processed_dir, "supply_duplicates"))
+    return output_checks.duplicate_summary(sites), duplicates.to_dict("records")
+
+
 def validate(processed_dir: Path) -> tuple[Results, list[tuple[str, str, int, int]], list[tuple[str, int, str]]]:
     """Return check results, missing-value counts and file details for the processed tables."""
     absent = missing_files(processed_dir)
@@ -58,7 +68,8 @@ def main(
         for table, rs in results.items()
     ])
     if not args.no_report:
-        section = markdown_report.render(download_log.utc_now(), files, results, missing)
+        duplicates = duplicate_report(processed_dir, results)
+        section = markdown_report.render(download_log.utc_now(), files, results, missing, duplicates)
         markdown_report.update(report_path, section)
         logger.info("Updated %s", report_path.name)
     logger.info("Validation %s", "PASSED" if passed else "FAILED: do not load these files into Power BI")

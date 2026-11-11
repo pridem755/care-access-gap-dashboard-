@@ -1,0 +1,150 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "2700c2184355e4d6e369",
+  "position": {
+    "x": 17.012658227848103,
+    "y": 364.55696202531647,
+    "z": 1000,
+    "height": 213.873417721519,
+    "width": 422.88607594936713,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGeography"
+                    }
+                  },
+                  "Property": "metro_status"
+                }
+              },
+              "queryRef": "DimGeography.metro_status",
+              "nativeQueryRef": "metro_status"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Uninsured Rate"
+                }
+              },
+              "queryRef": "_Measures.Uninsured Rate",
+              "nativeQueryRef": "Uninsured Rate"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Diabetes Max"
+                }
+              },
+              "queryRef": "_Measures.Diabetes Max",
+              "nativeQueryRef": "Diabetes Max"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Diabetes Median"
+                }
+              },
+              "queryRef": "_Measures.Diabetes Median",
+              "nativeQueryRef": "Diabetes Median"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Diabetes Min"
+                }
+              },
+              "queryRef": "_Measures.Diabetes Min",
+              "nativeQueryRef": "Diabetes Min"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Diabetes Rate"
+                }
+              },
+              "queryRef": "_Measures.Diabetes Rate",
+              "nativeQueryRef": "Diabetes Rate"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "High Blood Pressure Max"
+                }
+              },
+              "queryRef": "_Measures.High Blood Pressure Max",
+              "nativeQueryRef": "High Blood Pressure Max"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "High Blood Pressure Median"
+                }
+              },
+              "queryRef": "_Measures.High Blood Pressure Median",
+              "nativeQueryRef": "High Blood Pressure Median"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "High Blood Pressure Min"
+                }
+              },
+              "queryRef": "_Measures.High Blood Pressure Min",
+              "nativeQueryRef": "High Blood Pressure Min"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

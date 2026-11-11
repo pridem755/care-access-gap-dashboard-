@@ -29,7 +29,8 @@ def valid_tables():
     sites = pd.DataFrame([
         {**dict.fromkeys(SITE_FIELDS, ""), "site_id": sid, "fips": fips, "status": status,
          "site_type": "Service Delivery Site", "location_type": "Permanent",
-         "latitude": "37.54", "longitude": "-77.43", "fips_matched": matched, "in_supply_measure": supply}
+         "latitude": "37.54", "longitude": "-77.43", "fips_matched": matched, "in_supply_measure": supply,
+         "duplicate_key": f"{fips}|{sid}", "counted_once": supply}
         for sid, fips, status, matched, supply in [
             ("A", RICHMOND_CITY, "Active", "True", "True"),
             ("B", RICHMOND_CITY, "Active", "True", "True"),
@@ -39,7 +40,10 @@ def valid_tables():
     ])
     fact = pd.DataFrame({"fips": LOCALITIES, "supply_sites": "0", "active_sites_any_type": "0"})
     fact.loc[fact["fips"] == RICHMOND_CITY, ["supply_sites", "active_sites_any_type"]] = "2"
-    return {"dim_geography": dim, "acs_va": acs, "places_va": places, "hrsa_sites_va": sites, "fact_supply": fact}
+    duplicates = pd.DataFrame(columns=["duplicate_key", "site_id", "site_name", "program_type", "address", "fips",
+                                       "counted_once"])
+    return {"dim_geography": dim, "acs_va": acs, "places_va": places, "hrsa_sites_va": sites, "fact_supply": fact,
+            "supply_duplicates": duplicates}
 
 
 def write(tables, folder):
@@ -122,8 +126,8 @@ def test_blank_site_count_fails(tmp_path):
         tmp_path, broken("fact_supply", "supply_sites", 5, ""))
 
 
-def test_supply_total_must_match_flagged_sites(tmp_path):
-    assert ("fact_supply", "supply_sites total equals flagged sites") in failures(
+def test_supply_total_must_match_counted_once_sites(tmp_path):
+    assert ("fact_supply", "supply_sites total equals counted_once sites") in failures(
         tmp_path, broken("fact_supply", "supply_sites", 0, "1"))
 
 
@@ -187,3 +191,61 @@ def test_blanks_are_listed_as_missing_values(tmp_path):
     folder = write(broken("acs_va", "uninsured_moe", 0, ""), tmp_path / "processed")
     _, missing, _ = validate_data.validate(folder)
     assert ("acs_va", "uninsured_moe", 1, 133) in missing
+
+
+def merged_tables(listed=True):
+    """Return valid tables where sites A and B share a key and only A is counted."""
+    tables = valid_tables()
+    sites = tables["hrsa_sites_va"]
+    sites.loc[sites["site_id"] == "B", ["duplicate_key", "counted_once"]] = [f"{RICHMOND_CITY}|A", "False"]
+    sites.loc[sites["site_id"] == "A", "duplicate_key"] = f"{RICHMOND_CITY}|A"
+    tables["fact_supply"].loc[tables["fact_supply"]["fips"] == RICHMOND_CITY, "supply_sites"] = "1"
+    if listed:
+        rows = sites[sites["site_id"].isin(["A", "B"])]
+        tables["supply_duplicates"] = rows[tables["supply_duplicates"].columns.tolist()]
+    return tables
+
+
+def test_a_merged_duplicate_passes(tmp_path):
+    assert failures(tmp_path, merged_tables()) == set()
+
+
+def test_duplicates_file_missing_a_merged_pair_fails(tmp_path):
+    assert ("supply_duplicates", "lists exactly the supply sites sharing a duplicate_key") in failures(
+        tmp_path, merged_tables(listed=False))
+
+
+def test_counted_once_on_a_site_outside_the_supply_measure_fails(tmp_path):
+    assert ("hrsa_sites_va", "counted_once is True only for supply sites") in failures(
+        tmp_path, broken("hrsa_sites_va", "counted_once", 2, "True"))
+
+
+def test_a_duplicate_key_counted_twice_fails(tmp_path):
+    tables = broken("hrsa_sites_va", "duplicate_key", 1, f"{RICHMOND_CITY}|A")
+    found = failures(tmp_path, tables)
+    assert ("hrsa_sites_va", "each duplicate_key is counted at most once") in found
+    assert ("fact_supply", "supply_sites equals distinct duplicate_key per locality") in found
+
+
+def test_supply_sites_moved_to_another_locality_fails_even_when_the_total_matches(tmp_path):
+    tables = valid_tables()
+    fact = tables["fact_supply"]
+    fact.loc[fact["fips"] == RICHMOND_CITY, "supply_sites"] = "1"
+    fact.loc[fact["fips"] == RICHMOND_COUNTY, ["supply_sites", "active_sites_any_type"]] = "1"
+    found = failures(tmp_path, tables)
+    assert ("fact_supply", "supply_sites total equals counted_once sites") not in found
+    assert ("fact_supply", "supply_sites equals distinct duplicate_key per locality") in found
+    assert ("fact_supply", "supply_sites <= supply site records per locality") in found
+
+
+def test_report_says_zero_duplicates_when_there_are_none(tmp_path):
+    report = tmp_path / "validation_report.md"
+    assert validate_data.main([], write(valid_tables(), tmp_path / "processed"), report) == 0
+    assert "0 duplicate site records." in report.read_text()
+
+
+def test_report_lists_merged_duplicates(tmp_path):
+    report = tmp_path / "validation_report.md"
+    assert validate_data.main([], write(merged_tables(), tmp_path / "processed"), report) == 0
+    text = report.read_text()
+    assert "| duplicate site records merged | 1 |" in text and "0 duplicate site records." not in text

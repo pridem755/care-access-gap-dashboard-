@@ -1,0 +1,5 @@
+duplicate_key,site_id,site_name,program_type,address,fips,counted_once
+51680|2420 memorial ave|park view,BPS-H80-042330,Park View,Federally Qualified Health Center (FQHC),2420 Memorial Ave,51680,True
+51680|2420 memorial ave|park view,BPS-LAL-020819,Park View,Federally Qualified Health Center (FQHC) Look-Alike,2420 Memorial Ave,51680,False
+51680|800 5th st|5th street community health center,BPS-H80-042337,5th Street Community Health Center,Federally Qualified Health Center (FQHC),800 5th St,51680,True
+51680|800 5th st|5th street community health center,BPS-LAL-021283,5th Street Community Health Center,Federally Qualified Health Center (FQHC) Look-Alike,800 5th St,51680,False

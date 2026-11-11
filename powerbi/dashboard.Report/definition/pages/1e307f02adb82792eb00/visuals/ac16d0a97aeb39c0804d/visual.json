@@ -1,0 +1,195 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "ac16d0a97aeb39c0804d",
+  "position": {
+    "x": 529.82278481012656,
+    "y": 391.29113924050637,
+    "z": 9000,
+    "height": 164,
+    "width": 309,
+    "tabOrder": 9000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Gap Rank"
+                }
+              },
+              "queryRef": "_Measures.Gap Rank",
+              "nativeQueryRef": "Gap Rank"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Access Gap Score"
+                }
+              },
+              "queryRef": "_Measures.Access Gap Score",
+              "nativeQueryRef": "Access Gap Score"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Score Fifth"
+                }
+              },
+              "queryRef": "_Measures.Score Fifth",
+              "nativeQueryRef": "Score Fifth"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGeography"
+                    }
+                  },
+                  "Property": "locality_name"
+                }
+              },
+              "queryRef": "DimGeography.locality_name",
+              "nativeQueryRef": "locality_name"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Uninsured MOE"
+                }
+              },
+              "queryRef": "_Measures.Uninsured MOE",
+              "nativeQueryRef": "Uninsured MOE"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Uninsured Estimate Text"
+                }
+              },
+              "queryRef": "_Measures.Uninsured Estimate Text",
+              "nativeQueryRef": "Uninsured Estimate Text"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Reliability Flag"
+                }
+              },
+              "queryRef": "_Measures.Reliability Flag",
+              "nativeQueryRef": "Reliability Flag"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "VA Uninsured Rate"
+                }
+              },
+              "queryRef": "_Measures.VA Uninsured Rate",
+              "nativeQueryRef": "VA Uninsured Rate"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "VA Poverty Rate"
+                }
+              },
+              "queryRef": "_Measures.VA Poverty Rate",
+              "nativeQueryRef": "VA Poverty Rate"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "VA Locations per 100k"
+                }
+              },
+              "queryRef": "_Measures.VA Locations per 100k",
+              "nativeQueryRef": "VA Locations per 100k"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "VA Median Uninsured Rate"
+                }
+              },
+              "queryRef": "_Measures.VA Median Uninsured Rate",
+              "nativeQueryRef": "VA Median Uninsured Rate"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Gap Rank"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

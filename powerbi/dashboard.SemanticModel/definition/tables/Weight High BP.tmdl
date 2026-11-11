@@ -1,0 +1,26 @@
+table 'Weight High BP'
+	lineageTag: e41f4a32-d3e9-453d-afce-ab64d782be1d
+
+	measure 'Weight High BP Value' = SELECTEDVALUE('Weight High BP'[Weight High BP], 10)
+		formatString: 0
+		lineageTag: 43195e24-f584-4adf-88f0-465a0ec42839
+
+	column 'Weight High BP'
+		formatString: 0
+		lineageTag: 6ff42d9f-6d8e-4600-8180-ed7eb4ecec51
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition 'Weight High BP' = calculated
+		mode: import
+		source = GENERATESERIES(0, 50, 5)
+
+	annotation PBI_Id = d1ff46809cdb448bba4654cfe44e0678
+

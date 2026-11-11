@@ -1,0 +1,136 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "c3de1698ed3489a59ed3",
+  "position": {
+    "x": 0,
+    "y": 724.253164556962,
+    "z": 2000,
+    "height": 182.27848101265823,
+    "width": 308.65822784810126,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Administrative Sites"
+                }
+              },
+              "queryRef": "_Measures.Administrative Sites",
+              "nativeQueryRef": "Administrative Sites"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Counted Sites"
+                }
+              },
+              "queryRef": "_Measures.Counted Sites",
+              "nativeQueryRef": "Counted Sites"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Localities with No Location"
+                }
+              },
+              "queryRef": "_Measures.Localities with No Location",
+              "nativeQueryRef": "Localities with No Location"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Locations per 100k Residents"
+                }
+              },
+              "queryRef": "_Measures.Locations per 100k Residents",
+              "nativeQueryRef": "Locations per 100k Residents"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Locations per 10k Uninsured"
+                }
+              },
+              "queryRef": "_Measures.Locations per 10k Uninsured",
+              "nativeQueryRef": "Locations per 10k Uninsured"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Mobile or Seasonal Sites"
+                }
+              },
+              "queryRef": "_Measures.Mobile or Seasonal Sites",
+              "nativeQueryRef": "Mobile or Seasonal Sites"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Share with No Location"
+                }
+              },
+              "queryRef": "_Measures.Share with No Location",
+              "nativeQueryRef": "Share with No Location"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGeography"
+                    }
+                  },
+                  "Property": "locality_name"
+                }
+              },
+              "queryRef": "DimGeography.locality_name",
+              "nativeQueryRef": "locality_name"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

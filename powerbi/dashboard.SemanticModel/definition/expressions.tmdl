@@ -1,0 +1,7 @@
+expression DataFolder = "C:\Users\pride\OneDrive\Desktop\care-access-gap-dashboard\data\processed\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 528a5c29-7491-4cde-9503-64dd9a9637a7
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

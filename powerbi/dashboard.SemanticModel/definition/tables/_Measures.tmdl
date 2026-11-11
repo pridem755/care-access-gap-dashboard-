@@ -1,0 +1,434 @@
+table _Measures
+	lineageTag: 935fe7cc-64c7-467d-baab-f5bcd883a643
+
+	measure Population = SUM ( FactACS[insurance_universe] )
+		formatString: 0
+		displayFolder: 1 Base
+		lineageTag: 0cd70dd3-83bc-4216-83c2-b5175bf84bf4
+
+	measure 'Uninsured People' = SUM ( FactACS[uninsured] )
+		formatString: 0
+		displayFolder: 1 Base
+		lineageTag: 4692bd8d-a3ec-4c0d-9994-5811eb18bf3b
+
+	measure 'Poverty Universe' = SUM ( FactACS[poverty_universe] )
+		formatString: 0
+		displayFolder: 1 Base
+		lineageTag: 728d43cf-f3f5-4cc8-bcde-b39118d4079f
+
+	measure 'People in Poverty' = SUM ( FactACS[below_poverty] )
+		formatString: 0
+		displayFolder: 1 Base
+		lineageTag: 95b4f10b-2cc3-40fd-bea7-82714bea1ae3
+
+	measure 'Supply Locations' = SUM ( FactSupply[supply_sites] )
+		formatString: 0
+		displayFolder: 1 Base
+		lineageTag: efae8afb-0c9b-46e0-9159-6d6c491f7688
+
+	measure 'Active Sites Any Type' = SUM ( FactSupply[active_sites_any_type] )
+		formatString: 0
+		displayFolder: 1 Base
+		lineageTag: cd376877-ee61-4d26-b3e8-fa84400ad229
+
+	measure Localities = COUNTROWS ( DimGeography )
+		formatString: 0
+		displayFolder: 1 Base
+		lineageTag: c7555e68-294f-47ab-bdc5-4943cc1ec7e0
+
+	measure 'Uninsured Rate' = DIVIDE ( [Uninsured People], [Population] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 2 Need
+		lineageTag: efafede9-e8fa-405a-b895-bc9aecbca0bc
+
+	measure 'Poverty Rate' = DIVIDE ( [People in Poverty], [Poverty Universe] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 2 Need
+		lineageTag: a06c7746-bd9b-4d5f-9645-34af52dd2300
+
+	measure 'Diabetes Rate' =
+			
+			IF (
+			    HASONEVALUE ( DimGeography[fips] ),
+			    DIVIDE ( MAX ( FactPLACES[diabetes_pct] ), 100 )
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 2 Need
+		lineageTag: 277b0e6f-c343-42c2-a7e8-00edebfe0b66
+
+	measure 'High Blood Pressure Rate' =
+			
+			IF (
+			    HASONEVALUE ( DimGeography[fips] ),
+			    DIVIDE ( MAX ( FactPLACES[high_blood_pressure_pct] ), 100 )
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 2 Need
+		lineageTag: 48c6434d-4799-4b37-ad0b-c9fb873f1dd1
+
+	measure 'Diabetes Median' =
+			
+			DIVIDE (
+			    MEDIANX ( VALUES ( DimGeography[fips] ), CALCULATE ( MAX ( FactPLACES[diabetes_pct] ) ) ),
+			    100
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 2 Need
+		lineageTag: 37560cf6-7eef-4e36-aed1-5f37066b7a69
+
+	measure 'Diabetes Min' =
+			
+			DIVIDE (
+			    MINX ( VALUES ( DimGeography[fips] ), CALCULATE ( MAX ( FactPLACES[diabetes_pct] ) ) ),
+			    100
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 2 Need
+		lineageTag: e9e70fb6-e67e-496a-ac09-921c7f147f26
+
+	measure 'Diabetes Max' =
+			
+			DIVIDE (
+			    MAXX ( VALUES ( DimGeography[fips] ), CALCULATE ( MAX ( FactPLACES[diabetes_pct] ) ) ),
+			    100
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 2 Need
+		lineageTag: 7edc27ef-ad8a-4a58-a370-158913997033
+
+	measure 'High Blood Pressure Median' =
+			
+			DIVIDE (
+			    MEDIANX ( VALUES ( DimGeography[fips] ), CALCULATE ( MAX ( FactPLACES[high_blood_pressure_pct] ) ) ),
+			    100
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 2 Need
+		lineageTag: abfaf5c6-85c0-4b8f-b8c4-a13d0ad42bd8
+
+	measure 'High Blood Pressure Min' =
+			
+			DIVIDE (
+			    MINX ( VALUES ( DimGeography[fips] ), CALCULATE ( MAX ( FactPLACES[high_blood_pressure_pct] ) ) ),
+			    100
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 2 Need
+		lineageTag: 3ad26fe0-f624-4849-be94-7f063e868319
+
+	measure 'High Blood Pressure Max' =
+			
+			DIVIDE (
+			    MAXX ( VALUES ( DimGeography[fips] ), CALCULATE ( MAX ( FactPLACES[high_blood_pressure_pct] ) ) ),
+			    100
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 2 Need
+		lineageTag: a928d86f-c8a2-4ffe-8618-6279c6f8654d
+
+	measure 'Locations per 100k Residents' = DIVIDE ( [Supply Locations], [Population] ) * 100000
+		displayFolder: 3 Need
+		lineageTag: b64c6ca0-cadb-4b68-aedc-8312dcfaba12
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Locations per 10k Uninsured' = DIVIDE ( [Supply Locations], [Uninsured People] ) * 10000
+		displayFolder: 3 Need
+		lineageTag: 714a7d92-7ffc-4855-a671-98df67296c81
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Localities with No Location' =
+			
+			COUNTROWS (
+			    FILTER ( VALUES ( DimGeography[fips] ), CALCULATE ( [Supply Locations] ) = 0 )
+			)
+		formatString: 0
+		displayFolder: 3 Need
+		lineageTag: a531f51e-0d0f-4b03-ac48-9d940f213f4a
+
+	measure 'Share with No Location' = DIVIDE ( [Localities with No Location], [Localities] )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 3 Need
+		lineageTag: 087aea64-5d1b-4ee4-a4db-7c8e97daf2bc
+
+	measure 'Counted Sites' =
+			
+			CALCULATE ( COUNTROWS ( FactSites ), FactSites[in_supply_measure] = TRUE () )
+		formatString: 0
+		displayFolder: 3 Need
+		lineageTag: e35c911f-2cd3-4ab5-b9df-a7a8094ca8c1
+
+	measure 'Mobile or Seasonal Sites' =
+			
+			CALCULATE (
+			    COUNTROWS ( FactSites ),
+			    FactSites[location_type] IN { "Mobile Van", "Seasonal" }
+			)
+		formatString: 0
+		displayFolder: 3 Need
+		lineageTag: fe4265d4-10c5-4bfc-8181-e3c528d53910
+
+	measure 'Administrative Sites' =
+			
+			CALCULATE ( COUNTROWS ( FactSites ), FactSites[site_type] = "Administrative" )
+		formatString: 0
+		displayFolder: 3 Need
+		lineageTag: 3ae4c736-8a7d-44bf-a790-5af4cf3448d7
+
+	measure 'Counted Clinics' =
+			
+			CALCULATE ( COUNTROWS ( FactSites ), FactSites[counted_once] = TRUE () )
+		formatString: 0
+		displayFolder: 3 Need
+		lineageTag: 01afdd01-7222-4712-b303-55450a8a2f8c
+
+	measure 'Total Weight' =
+			
+			[Weight Uninsured Value] + [Weight Poverty Value] + [Weight Diabetes Value]
+			    + [Weight High BP Value] + [Weight Supply Value]
+		formatString: 0
+		displayFolder: 4 Need
+		lineageTag: 2fbb630e-24b8-4565-b9c5-f3a822249e30
+
+	measure 'Access Gap Score' =
+			
+			VAR total = [Total Weight]
+			VAR weighted =
+			    [Weight Uninsured Value] * SELECTEDVALUE ( DimGeography[Uninsured Pctl] )
+			        + [Weight Poverty Value] * SELECTEDVALUE ( DimGeography[Poverty Pctl] )
+			        + [Weight Diabetes Value] * SELECTEDVALUE ( DimGeography[Diabetes Pctl] )
+			        + [Weight High BP Value] * SELECTEDVALUE ( DimGeography[High BP Pctl] )
+			        + [Weight Supply Value] * SELECTEDVALUE ( DimGeography[Supply Gap Pctl] )
+			RETURN
+			    IF ( HASONEVALUE ( DimGeography[fips] ) && total > 0, DIVIDE ( weighted, total ) )
+		formatString: 0.0
+		displayFolder: 4 Need
+		lineageTag: 132eff2d-5a77-477e-a498-f9d5e60529a9
+
+	measure 'Gap Rank' =
+			
+			IF (
+			    HASONEVALUE ( DimGeography[fips] ),
+			    RANKX ( ALL ( DimGeography ), [Access Gap Score], , DESC, SKIP )
+			)
+		formatString: 0
+		displayFolder: 4 Need
+		lineageTag: a6d14d43-1b32-4917-9a24-a1c7b7df4bce
+
+	measure 'Score Fifth' =
+			
+			VAR r = [Gap Rank]
+			RETURN
+			    IF ( NOT ISBLANK ( r ), 5 - INT ( ( r - 1 ) * 5 / COUNTROWS ( ALL ( DimGeography ) ) ) )
+		formatString: 0
+		displayFolder: 4 Need
+		lineageTag: 9d5dea18-2ad3-4c0c-a4dc-7422a5c42ca5
+
+	measure 'Score Color' =
+			
+			SWITCH (
+			    [Score Fifth],
+			    1, "#E8EFF6",
+			    2, "#BFD3E6",
+			    3, "#86AED1",
+			    4, "#4A82B4",
+			    5, "#1F5182"
+			)
+		displayFolder: 4 Need
+		lineageTag: 2a539415-507e-4783-a137-7592938140b2
+
+	measure 'Uninsured MOE' =
+			
+			IF ( HASONEVALUE ( DimGeography[fips] ), SUM ( FactACS[uninsured_moe] ) )
+		formatString: 0
+		displayFolder: 5 Need
+		lineageTag: a376101f-5e59-4001-9800-07defe01689a
+
+	measure 'Uninsured Estimate Text' =
+			
+			IF (
+			    HASONEVALUE ( DimGeography[fips] ),
+			    FORMAT ( [Uninsured People], "#,0" ) & " ± " & FORMAT ( [Uninsured MOE], "#,0" ) & " people"
+			)
+		displayFolder: 5 Need
+		lineageTag: 6cb29dd8-ff8c-4a2d-bd79-61c2c8b764b9
+
+	measure 'Reliability Flag' =
+			
+			VAR cv = MAX ( FactACS[uninsured_cv] )
+			RETURN
+			    IF (
+			        HASONEVALUE ( DimGeography[fips] ),
+			        SWITCH (
+			            TRUE (),
+			            ISBLANK ( cv ), "No CV",
+			            cv > 0.40, "Unreliable",
+			            cv > 0.30, "Caution",
+			            "OK"
+			        )
+			    )
+		displayFolder: 5 Need
+		lineageTag: 25f871dd-6053-45c5-85c6-78dec5b7f157
+
+	measure 'VA Uninsured Rate' = CALCULATE ( [Uninsured Rate], ALL ( DimGeography ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 5 Need
+		lineageTag: be346b84-fcb5-4e41-bef5-a16fb27b32f6
+
+	measure 'VA Poverty Rate' = CALCULATE ( [Poverty Rate], ALL ( DimGeography ) )
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 5 Need
+		lineageTag: 55e76177-ae08-43a3-b0bd-385faf6de6e1
+
+	measure 'VA Locations per 100k' = CALCULATE ( [Locations per 100k Residents], ALL ( DimGeography ) )
+		formatString: 0.0
+		displayFolder: 5 Need
+		lineageTag: 2a6549e6-6d10-440e-9efe-8f6a70b0df45
+
+	measure 'VA Median Uninsured Rate' =
+			
+			DIVIDE (
+			    MEDIANX ( ALL ( DimGeography[fips] ), CALCULATE ( MAX ( FactACS[uninsured_pct] ) ) ),
+			    100
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 5 Need
+		lineageTag: 22e58959-1f6e-4487-807b-de2573081bc4
+
+	measure 'VA Median Poverty Rate' =
+			
+			DIVIDE (
+			    MEDIANX ( ALL ( DimGeography[fips] ), CALCULATE ( MAX ( FactACS[below_poverty_pct] ) ) ),
+			    100
+			)
+		displayFolder: 5 Need
+		lineageTag: 8c7d5c2c-62ed-4501-a123-d24382e4fdd4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'VA Median Diabetes Rate' =
+			
+			DIVIDE (
+			    MEDIANX ( ALL ( DimGeography[fips] ), CALCULATE ( MAX ( FactPLACES[diabetes_pct] ) ) ),
+			    100
+			)
+		displayFolder: 5 Need
+		lineageTag: 372b885d-f7cb-40c6-a2ac-aa1e736943a8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'VA Median High Blood Pressure Rate' =
+			
+			DIVIDE (
+			    MEDIANX ( ALL ( DimGeography[fips] ), CALCULATE ( MAX ( FactPLACES[high_blood_pressure_pct] ) ) ),
+			    100
+			)
+		displayFolder: 5 Need
+		lineageTag: 3152482c-5818-4ec0-ba48-24d0df5d8559
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'VA Median Locations per 100k' =
+			
+			MEDIANX ( ALL ( DimGeography[fips] ), [Locations per 100k Residents] )
+		displayFolder: 5 Need
+		lineageTag: a145aa11-1fbe-4aa5-9547-f87c6934bb6f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Top 20 No Location Count' =
+			
+			CALCULATE (
+			    VAR top20 = TOPN ( 20, VALUES ( DimGeography[fips] ), [Access Gap Score], DESC )
+			    RETURN COUNTROWS ( FILTER ( top20, CALCULATE ( [Supply Locations] ) = 0 ) ),
+			    ALL ( DimGeography ),
+			    ALL ( FactACS ),
+			    ALL ( FactPLACES ),
+			    ALL ( FactSupply ),
+			    ALL ( FactSites )
+			)
+		formatString: 0
+		lineageTag: 46a15f19-ddd4-4918-ac8f-42ea0532f0ed
+
+	measure 'Top 20 Title' =
+			
+			IF (
+			    HASONEVALUE ( DimGeography[fips] ),
+			    SELECTEDVALUE ( DimGeography[locality_name] ) & " ranks " & [Gap Rank] & " of "
+			        & COUNTROWS ( ALL ( DimGeography ) ) & " (gap score "
+			        & FORMAT ( [Access Gap Score], "0" ) & ")",
+			    [Top 20 No Location Count] & " of the 20 highest-gap localities have no health center location"
+			)
+		lineageTag: 5ec66d24-5f12-4fa4-b240-7439b9188e1d
+
+	measure 'Selected Locality' = SELECTEDVALUE ( DimGeography[locality_name], "Select a locality" )
+		lineageTag: 4597198c-5729-41dc-bdd8-cc97ba5b1a3a
+
+	measure 'Rank Text' = "Rank " & [Gap Rank] & " of " & COUNTROWS ( ALL ( DimGeography ) )
+		lineageTag: 0c1e774e-a755-4527-8f77-d73c97bdfc85
+
+	measure 'Locality Types Text' =
+			
+			FORMAT ( CALCULATE ( COUNTROWS ( DimGeography ), DimGeography[locality_type] = "County" ), "0" )
+			    & " counties · "
+			    & FORMAT ( CALCULATE ( COUNTROWS ( DimGeography ), DimGeography[locality_type] = "City" ), "0" )
+			    & " cities"
+		lineageTag: 1e7e972e-c4da-434e-acbf-1fba5aa726e7
+
+	measure Measure
+		lineageTag: ff720d8f-5ec0-4ebf-8389-1bfd55e3da83
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure 'Reliability Color' =
+			
+			SWITCH (
+			    [Reliability Flag],
+			    "Caution", "#B45309",
+			    "Unreliable", "#B45309",
+			    "#66717F"
+			)
+		lineageTag: 4b77ed72-c9be-46a2-b4de-9a83677712f6
+
+	measure 'Gap Score Bar' =
+			
+			VAR score = [Access Gap Score]
+			VAR imgWidth = 95
+			VAR imgHeight = 16
+			VAR trackWidth = 62
+			VAR barHeight = 4
+			VAR barTop = ( imgHeight - barHeight ) / 2
+			VAR fillWidth = DIVIDE ( score, 100 ) * trackWidth
+			RETURN
+			    IF (
+			        NOT ISBLANK ( score ),
+			        "data:image/svg+xml;utf8,"
+			            & "<svg xmlns='http://www.w3.org/2000/svg' width='" & imgWidth
+			            & "' height='" & imgHeight & "'>"
+			            & "<rect x='0' y='" & barTop & "' width='" & trackWidth
+			            & "' height='" & barHeight & "' rx='2' fill='%23E3E8EE'/>"
+			            & "<rect x='0' y='" & barTop & "' width='" & FORMAT ( fillWidth, "0.0" )
+			            & "' height='" & barHeight & "' rx='2' fill='%231F5182'/>"
+			            & "<line x1='" & trackWidth & "' y1='3' x2='" & trackWidth
+			            & "' y2='13' stroke='%2366717F' stroke-width='1'/>"
+			            & "<text x='" & imgWidth - 1 & "' y='12' text-anchor='end' "
+			            & "font-family='Segoe UI, sans-serif' font-size='11' fill='%2317212B'>"
+			            & FORMAT ( score, "0" ) & "</text>"
+			            & "</svg>"
+			    )
+		lineageTag: 85fffccc-507e-499c-9a01-b317a2f65d78
+		dataCategory: ImageUrl
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

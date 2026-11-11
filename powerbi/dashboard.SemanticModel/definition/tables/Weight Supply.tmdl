@@ -1,0 +1,26 @@
+table 'Weight Supply'
+	lineageTag: dee9b716-4482-499b-be8b-c99791dd0813
+
+	measure 'Weight Supply Value' = SELECTEDVALUE('Weight Supply'[Weight Supply], 30)
+		formatString: 0
+		lineageTag: 9f3e04be-3845-4287-9a29-aeb925689a71
+
+	column 'Weight Supply'
+		formatString: 0
+		lineageTag: bf75dde2-61eb-4c71-b055-bf5a32945124
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition 'Weight Supply' = calculated
+		mode: import
+		source = GENERATESERIES(0, 50, 5)
+
+	annotation PBI_Id = 2f4652449ba64596b141b48f1421f83f
+

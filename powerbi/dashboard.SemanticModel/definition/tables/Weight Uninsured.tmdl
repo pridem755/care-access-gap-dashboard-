@@ -1,0 +1,26 @@
+table 'Weight Uninsured'
+	lineageTag: c26c7d03-4dc9-4fdb-ba83-e7b25f1001d0
+
+	measure 'Weight Uninsured Value' = SELECTEDVALUE('Weight Uninsured'[Weight Uninsured], 25)
+		formatString: 0
+		lineageTag: 7d2804bc-c3d5-4664-b53e-144373921817
+
+	column 'Weight Uninsured'
+		formatString: 0
+		lineageTag: a9cd57f2-299c-4172-9788-158c82066c0e
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition 'Weight Uninsured' = calculated
+		mode: import
+		source = GENERATESERIES(0, 50, 5)
+
+	annotation PBI_Id = de2d9782589f4faeb2958538b25c6ddf
+
