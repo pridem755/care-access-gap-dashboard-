@@ -1,0 +1,130 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "1d28696a775d8a086970",
+  "position": {
+    "x": 405.873417721519,
+    "y": 724.253164556962,
+    "z": 3000,
+    "height": 235.74683544303798,
+    "width": 554.126582278481,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGeography"
+                    }
+                  },
+                  "Property": "locality_name"
+                }
+              },
+              "queryRef": "DimGeography.locality_name",
+              "nativeQueryRef": "locality_name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGeography"
+                    }
+                  },
+                  "Property": "Diabetes Pctl"
+                }
+              },
+              "queryRef": "Sum(DimGeography.Diabetes Pctl)",
+              "nativeQueryRef": "Diabetes Pctl"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGeography"
+                    }
+                  },
+                  "Property": "High BP Pctl"
+                }
+              },
+              "queryRef": "Sum(DimGeography.High BP Pctl)",
+              "nativeQueryRef": "High BP Pctl"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGeography"
+                    }
+                  },
+                  "Property": "Poverty Pctl"
+                }
+              },
+              "queryRef": "Sum(DimGeography.Poverty Pctl)",
+              "nativeQueryRef": "Poverty Pctl"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGeography"
+                    }
+                  },
+                  "Property": "Supply Gap Pctl"
+                }
+              },
+              "queryRef": "DimGeography.Supply Gap Pctl",
+              "nativeQueryRef": "Supply Gap Pctl"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGeography"
+                    }
+                  },
+                  "Property": "Uninsured Pctl"
+                }
+              },
+              "queryRef": "Sum(DimGeography.Uninsured Pctl)",
+              "nativeQueryRef": "Uninsured Pctl"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "DimGeography"
+                      }
+                    },
+                    "Property": "Poverty Pctl"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,257 @@
+table DimGeography
+	lineageTag: b39fe739-2a21-4621-b8ee-c5e84580f362
+
+	column fips
+		dataType: string
+		lineageTag: b0af7746-63db-40af-8f44-3232ca82cff8
+		summarizeBy: none
+		sourceColumn: fips
+
+		annotation SummarizationSetBy = Automatic
+
+	column locality_name
+		dataType: string
+		lineageTag: 61d9cf07-099f-495a-86ee-6ab98fdd8cf3
+		summarizeBy: none
+		sourceColumn: locality_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column locality_type
+		dataType: string
+		lineageTag: a9fb01dd-9fc3-403f-892e-5bad90bc596a
+		dataCategory: County
+		summarizeBy: none
+		sourceColumn: locality_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column metro_status
+		dataType: string
+		lineageTag: efaedb21-3314-44c8-953a-3c7ca02022a9
+		summarizeBy: none
+		sourceColumn: metro_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column rucc_code
+		dataType: int64
+		formatString: 0
+		lineageTag: a35e3b42-d491-4ed9-ae1d-889890f5eb38
+		summarizeBy: none
+		sourceColumn: rucc_code
+
+		annotation SummarizationSetBy = User
+
+	column rucc_description
+		dataType: string
+		lineageTag: 6635ba17-8059-4d1b-83ad-1157faa3cadb
+		summarizeBy: none
+		sourceColumn: rucc_description
+
+		annotation SummarizationSetBy = Automatic
+
+	column population_2020
+		dataType: int64
+		formatString: 0
+		lineageTag: 8dc16ce9-ca69-42c5-8f44-873c826d3ea4
+		summarizeBy: sum
+		sourceColumn: population_2020
+
+		annotation SummarizationSetBy = Automatic
+
+	column land_area_sq_mi
+		dataType: double
+		lineageTag: e4b074b9-8d69-4260-92df-43e80f45e21e
+		summarizeBy: sum
+		sourceColumn: land_area_sq_mi
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Uninsured Value' = MAXX ( RELATEDTABLE ( FactACS ), FactACS[uninsured_pct] )
+		isHidden
+		formatString: 0.0
+		lineageTag: f530d6de-9a5f-49ef-97c8-14632ef230e2
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column 'Poverty Value' = MAXX ( RELATEDTABLE ( FactACS ), FactACS[below_poverty_pct] )
+		isHidden
+		formatString: 0.0
+		lineageTag: 2cbd21fe-3d42-41f3-9881-4785061c5699
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column 'Diabetes Value' = MAXX ( RELATEDTABLE ( FactPLACES ), FactPLACES[diabetes_pct] )
+		isHidden
+		formatString: 0.0
+		lineageTag: e69b462d-2f00-4f1a-8ee2-1533b806a712
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column 'High BP Value' = MAXX ( RELATEDTABLE ( FactPLACES ), FactPLACES[high_blood_pressure_pct] )
+		isHidden
+		formatString: 0.0
+		lineageTag: 7ae090d0-3c75-4bc6-9f7f-ac49f0ce4b95
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column 'Supply Value' =
+			
+			DIVIDE (
+			    SUMX ( RELATEDTABLE ( FactSupply ), FactSupply[supply_sites] ),
+			    SUMX ( RELATEDTABLE ( FactACS ), FactACS[insurance_universe] )
+			) * 100000
+		isHidden
+		formatString: 0.0
+		lineageTag: 6bc50926-c928-4140-950e-02370233d677
+		summarizeBy: none
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column 'Uninsured Pctl' =
+			
+			VAR v = DimGeography[Uninsured Value]
+			VAR others =
+			    FILTER (
+			        ALL ( DimGeography[fips], DimGeography[Uninsured Value] ),
+			        NOT ISBLANK ( DimGeography[Uninsured Value] )
+			    )
+			RETURN
+			    IF (
+			        ISBLANK ( v ),
+			        BLANK (),
+			        DIVIDE (
+			            COUNTROWS ( FILTER ( others, DimGeography[Uninsured Value] < v ) ),
+			            COUNTROWS ( others ) - 1
+			        ) * 100
+			    )
+		formatString: 0.0
+		lineageTag: 4dbf12e7-1a18-4dc8-8350-d07aae628461
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	column 'Poverty Pctl' =
+			
+			VAR v = DimGeography[Poverty Value]
+			VAR others =
+			    FILTER (
+			        ALL ( DimGeography[fips], DimGeography[Poverty Value] ),
+			        NOT ISBLANK ( DimGeography[Poverty Value] )
+			    )
+			RETURN
+			    IF (
+			        ISBLANK ( v ),
+			        BLANK (),
+			        DIVIDE (
+			            COUNTROWS ( FILTER ( others, DimGeography[Poverty Value] < v ) ),
+			            COUNTROWS ( others ) - 1
+			        ) * 100
+			    )
+		formatString: 0.0
+		lineageTag: 9202ce1d-16fd-404f-b1d5-646f5d41a4cd
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	column 'Diabetes Pctl' =
+			
+			VAR v = DimGeography[Diabetes Value]
+			VAR others =
+			    FILTER (
+			        ALL ( DimGeography[fips], DimGeography[Diabetes Value] ),
+			        NOT ISBLANK ( DimGeography[Diabetes Value] )
+			    )
+			RETURN
+			    IF (
+			        ISBLANK ( v ),
+			        BLANK (),
+			        DIVIDE (
+			            COUNTROWS ( FILTER ( others, DimGeography[Diabetes Value] < v ) ),
+			            COUNTROWS ( others ) - 1
+			        ) * 100
+			    )
+		formatString: 0.0
+		lineageTag: 31dcab64-1a3f-49ee-95ea-e0fb7d547222
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	column 'High BP Pctl' =
+			
+			VAR v = DimGeography[High BP Value]
+			VAR others =
+			    FILTER (
+			        ALL ( DimGeography[fips], DimGeography[High BP Value] ),
+			        NOT ISBLANK ( DimGeography[High BP Value] )
+			    )
+			RETURN
+			    IF (
+			        ISBLANK ( v ),
+			        BLANK (),
+			        DIVIDE (
+			            COUNTROWS ( FILTER ( others, DimGeography[High BP Value] < v ) ),
+			            COUNTROWS ( others ) - 1
+			        ) * 100
+			    )
+		formatString: 0.0
+		lineageTag: 7ad07a70-0c19-48d9-a397-6debc9f839cb
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	column 'Supply Gap Pctl' =
+			
+			VAR v = DimGeography[Supply Value]
+			VAR others =
+			    FILTER (
+			        ALL ( DimGeography[fips], DimGeography[Supply Value] ),
+			        NOT ISBLANK ( DimGeography[Supply Value] )
+			    )
+			RETURN
+			    IF (
+			        ISBLANK ( v ),
+			        BLANK (),
+			        100
+			            - DIVIDE (
+			                COUNTROWS ( FILTER ( others, DimGeography[Supply Value] < v ) ),
+			                COUNTROWS ( others ) - 1
+			            ) * 100
+			    )
+		formatString: 0.0
+		lineageTag: 7744a4fa-fed5-440e-8d6c-610fe8622808
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	partition DimGeography = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "dim_geography.csv"),[Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"fips", type text}, {"locality_name", type text}, {"locality_type", type text}, {"metro_status", type text}, {"rucc_code", Int64.Type}, {"rucc_description", type text}, {"population_2020", Int64.Type}, {"land_area_sq_mi", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,16 @@
+relationship 38558dde-cca3-f618-feea-273b9e961c5a
+	fromColumn: FactACS.fips
+	toColumn: DimGeography.fips
+
+relationship 77b74590-ecaf-78cb-bfa3-26f46a4c8683
+	fromColumn: FactSites.fips
+	toColumn: DimGeography.fips
+
+relationship 7526e08c-f377-b459-92f5-20459255c642
+	fromColumn: FactPLACES.fips
+	toColumn: DimGeography.fips
+
+relationship d83aa4bf-4604-51d8-e095-444f9a8b6e9c
+	fromColumn: FactSupply.fips
+	toColumn: DimGeography.fips
+

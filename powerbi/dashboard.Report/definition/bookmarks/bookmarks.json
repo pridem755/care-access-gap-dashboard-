@@ -1,0 +1,14 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmarksMetadata/1.0.0/schema.json",
+  "items": [
+    {
+      "name": "fe4a5827030918dbb672",
+      "displayName": "Area Filter",
+      "children": [
+        "46c7def7e1d38e6201b5",
+        "10037d67393b00366560",
+        "e3a16517c9987aac9e6c"
+      ]
+    }
+  ]
+}

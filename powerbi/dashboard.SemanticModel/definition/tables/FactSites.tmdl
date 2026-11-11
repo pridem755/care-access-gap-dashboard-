@@ -1,0 +1,164 @@
+table FactSites
+	lineageTag: c563405a-b695-48d7-976f-8aeaf7b059fa
+
+	column site_id
+		dataType: string
+		lineageTag: 4bf91999-95cf-4186-a69c-846b62fa55bd
+		summarizeBy: none
+		sourceColumn: site_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column site_name
+		dataType: string
+		lineageTag: 78834e7e-2332-4206-abcc-fe2b5faae476
+		summarizeBy: none
+		sourceColumn: site_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column health_center_name
+		dataType: string
+		lineageTag: 151b30d3-a17f-482a-a6ad-a45c08648753
+		summarizeBy: none
+		sourceColumn: health_center_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column program_type
+		dataType: string
+		lineageTag: a7e17965-d011-477c-bb2d-b595d832c2af
+		summarizeBy: none
+		sourceColumn: program_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 7e285559-cb07-4cd4-8a41-a982abb68234
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column site_type
+		dataType: string
+		lineageTag: 3955f736-91e7-4a08-908f-29ca47f3df6d
+		summarizeBy: none
+		sourceColumn: site_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_type
+		dataType: string
+		lineageTag: ae75d313-02d9-4cc4-a9e2-86bb21e6abbf
+		summarizeBy: none
+		sourceColumn: location_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column address
+		dataType: string
+		lineageTag: cade47b1-0d49-480b-b492-874c8d72925e
+		summarizeBy: none
+		sourceColumn: address
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: b14ad402-2f40-4438-b648-522a21b8d8f3
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column postal_code
+		dataType: string
+		lineageTag: 346aa4d4-2a9b-4633-b771-edf1ec79f806
+		summarizeBy: none
+		sourceColumn: postal_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column fips
+		dataType: string
+		isHidden
+		lineageTag: bf9e4f48-9c1e-4044-b23c-c2804d8c9902
+		summarizeBy: none
+		sourceColumn: fips
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column latitude
+		dataType: double
+		lineageTag: 9fb60a94-abf0-480d-aa2c-8484be1067e9
+		dataCategory: Latitude
+		summarizeBy: sum
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column longitude
+		dataType: double
+		lineageTag: ef80a8bb-fc17-4a93-88c5-b7669056a557
+		dataCategory: Longitude
+		summarizeBy: sum
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fips_matched
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 199d2b4d-4ad5-41bd-808c-8284a400fa65
+		summarizeBy: none
+		sourceColumn: fips_matched
+
+		annotation SummarizationSetBy = Automatic
+
+	column in_supply_measure
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d7b20a92-6b21-417a-8893-8436960a543d
+		summarizeBy: none
+		sourceColumn: in_supply_measure
+
+		annotation SummarizationSetBy = Automatic
+
+	column duplicate_key
+		dataType: string
+		lineageTag: be33148b-c7fb-4a5b-8a16-1fab25c6b568
+		summarizeBy: none
+		sourceColumn: duplicate_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column counted_once
+		dataType: string
+		lineageTag: 0f06a9f9-76a4-4c3b-a814-327a946c2435
+		summarizeBy: none
+		sourceColumn: counted_once
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactSites = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "hrsa_sites_va.csv"),[Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"site_id", type text}, {"site_name", type text}, {"health_center_name", type text}, {"program_type", type text}, {"status", type text}, {"site_type", type text}, {"location_type", type text}, {"address", type text}, {"city", type text}, {"postal_code", type text}, {"fips", type text}, {"latitude", type number}, {"longitude", type number}, {"fips_matched", type logical}, {"in_supply_measure", type logical}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

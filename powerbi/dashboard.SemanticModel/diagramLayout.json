@@ -1,0 +1,165 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 919.86393401447481,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 332.03730057992595,
+            "y": 329.53824575697212
+          },
+          "nodeIndex": "DimGeography",
+          "nodeLineageTag": "b39fe739-2a21-4621-b8ee-c5e84580f362",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 16.597309217999793,
+            "y": 508.08233047712906
+          },
+          "nodeIndex": "FactACS",
+          "nodeLineageTag": "f51adf23-6bc3-4f4b-900b-ffbd1a012e12",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 504.09027241193814,
+            "y": 0
+          },
+          "nodeIndex": "FactPLACES",
+          "nodeLineageTag": "5ea42f8c-c294-4348-a825-3973a8c16b27",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 644.86393401447481,
+            "y": 493.83141052233884
+          },
+          "nodeIndex": "FactSites",
+          "nodeLineageTag": "c563405a-b695-48d7-976f-8aeaf7b059fa",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 9,
+            "y": 1.7548539669987804
+          },
+          "nodeIndex": "FactSupply",
+          "nodeLineageTag": "36bc6169-4333-4b0c-b03b-3ab6d6562717",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 919.86393401447481,
+            "y": 352.04116523856453
+          },
+          "nodeIndex": "_Measures",
+          "nodeLineageTag": "935fe7cc-64c7-467d-baab-f5bcd883a643",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 1194.8639340144748,
+            "y": 292.04116523856453
+          },
+          "nodeIndex": "Weight Uninsured",
+          "nodeLineageTag": "c26c7d03-4dc9-4fdb-ba83-e7b25f1001d0",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1744.8639340144748,
+            "y": 292.04116523856453
+          },
+          "nodeIndex": "Weight Poverty",
+          "nodeLineageTag": "86a649d3-4d52-452d-a353-184b975f8497",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2019.8639340144748,
+            "y": 292.04116523856453
+          },
+          "nodeIndex": "Weight Diabetes",
+          "nodeLineageTag": "823c460a-fd18-454f-8381-5d972e20e683",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2294.8639340144746,
+            "y": 292.04116523856453
+          },
+          "nodeIndex": "Weight High BP",
+          "nodeLineageTag": "e41f4a32-d3e9-453d-afce-ab64d782be1d",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2569.8639340144746,
+            "y": 292.04116523856453
+          },
+          "nodeIndex": "Weight Supply",
+          "nodeLineageTag": "dee9b716-4482-499b-be8b-c99791dd0813",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

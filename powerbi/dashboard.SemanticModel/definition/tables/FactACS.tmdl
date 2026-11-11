@@ -1,0 +1,200 @@
+table FactACS
+	lineageTag: f51adf23-6bc3-4f4b-900b-ffbd1a012e12
+
+	column fips
+		dataType: string
+		isHidden
+		lineageTag: 6e48beb0-dce7-4f83-a8c1-1f106f749a46
+		summarizeBy: none
+		sourceColumn: fips
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column insurance_universe
+		dataType: int64
+		formatString: 0
+		lineageTag: 56ae9564-7276-4e5e-a4aa-539753e19d4a
+		summarizeBy: sum
+		sourceColumn: insurance_universe
+
+		annotation SummarizationSetBy = Automatic
+
+	column insurance_universe_moe
+		dataType: int64
+		formatString: 0
+		lineageTag: c45867e9-1c5e-4d18-8dcc-f0d985c66239
+		summarizeBy: sum
+		sourceColumn: insurance_universe_moe
+
+		annotation SummarizationSetBy = Automatic
+
+	column insurance_universe_cv
+		dataType: double
+		lineageTag: a980d04d-8c5f-4495-9c23-1e2bc1249a80
+		summarizeBy: sum
+		sourceColumn: insurance_universe_cv
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column uninsured
+		dataType: int64
+		formatString: 0
+		lineageTag: 3ccace9c-967b-432e-94cd-08a9a039e557
+		summarizeBy: sum
+		sourceColumn: uninsured
+
+		annotation SummarizationSetBy = Automatic
+
+	column uninsured_moe
+		dataType: int64
+		formatString: 0
+		lineageTag: 15565323-0fa1-4896-bca9-bd1386746a4c
+		summarizeBy: sum
+		sourceColumn: uninsured_moe
+
+		annotation SummarizationSetBy = Automatic
+
+	column uninsured_cv
+		dataType: double
+		lineageTag: 9d38fef1-49ef-42a7-a61b-330b444e7fc4
+		summarizeBy: sum
+		sourceColumn: uninsured_cv
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column uninsured_pct
+		dataType: double
+		lineageTag: ec325e56-cf83-4caf-95e9-a0e1dca07386
+		summarizeBy: sum
+		sourceColumn: uninsured_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column uninsured_pct_moe
+		dataType: double
+		lineageTag: 71bb6434-00de-4348-874c-2af8a6269cc9
+		summarizeBy: sum
+		sourceColumn: uninsured_pct_moe
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column uninsured_pct_cv
+		dataType: double
+		lineageTag: aa804218-07d1-49ae-9dc1-2a6c3a41b8e2
+		summarizeBy: sum
+		sourceColumn: uninsured_pct_cv
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column poverty_universe
+		dataType: int64
+		formatString: 0
+		lineageTag: 9b3f62a6-1884-478f-b284-722658858615
+		summarizeBy: sum
+		sourceColumn: poverty_universe
+
+		annotation SummarizationSetBy = Automatic
+
+	column poverty_universe_moe
+		dataType: int64
+		formatString: 0
+		lineageTag: b709cb0b-79e1-474e-916c-650123f9c5b8
+		summarizeBy: sum
+		sourceColumn: poverty_universe_moe
+
+		annotation SummarizationSetBy = Automatic
+
+	column poverty_universe_cv
+		dataType: double
+		lineageTag: a17cd46f-90c5-4bde-add9-8a913e7cb4b9
+		summarizeBy: sum
+		sourceColumn: poverty_universe_cv
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column below_poverty
+		dataType: int64
+		formatString: 0
+		lineageTag: 27b0dd4f-117d-4ad5-bb46-e64ac6fc9460
+		summarizeBy: sum
+		sourceColumn: below_poverty
+
+		annotation SummarizationSetBy = Automatic
+
+	column below_poverty_moe
+		dataType: int64
+		formatString: 0
+		lineageTag: 57061f40-a186-4597-91d2-fb81de0660c5
+		summarizeBy: sum
+		sourceColumn: below_poverty_moe
+
+		annotation SummarizationSetBy = Automatic
+
+	column below_poverty_cv
+		dataType: double
+		lineageTag: b4d4dcf2-1841-4e0e-aa48-c9681a5d8519
+		summarizeBy: sum
+		sourceColumn: below_poverty_cv
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column below_poverty_pct
+		dataType: double
+		lineageTag: 10fda0b5-1678-444e-b94c-02b5e2e57c98
+		summarizeBy: sum
+		sourceColumn: below_poverty_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column below_poverty_pct_moe
+		dataType: double
+		lineageTag: 68afcaae-2bb3-4ba1-aba4-ae0d1caed9e6
+		summarizeBy: sum
+		sourceColumn: below_poverty_pct_moe
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column below_poverty_pct_cv
+		dataType: double
+		lineageTag: 33e00be3-df5c-49b2-9048-9b0a36002f87
+		summarizeBy: sum
+		sourceColumn: below_poverty_pct_cv
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition FactACS = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "acs_va.csv"),[Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"fips", type text}, {"insurance_universe", Int64.Type}, {"insurance_universe_moe", Int64.Type}, {"insurance_universe_cv", type number}, {"uninsured", Int64.Type}, {"uninsured_moe", Int64.Type}, {"uninsured_cv", type number}, {"uninsured_pct", type number}, {"uninsured_pct_moe", type number}, {"uninsured_pct_cv", type number}, {"poverty_universe", Int64.Type}, {"poverty_universe_moe", Int64.Type}, {"poverty_universe_cv", type number}, {"below_poverty", Int64.Type}, {"below_poverty_moe", Int64.Type}, {"below_poverty_cv", type number}, {"below_poverty_pct", type number}, {"below_poverty_pct_moe", type number}, {"below_poverty_pct_cv", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

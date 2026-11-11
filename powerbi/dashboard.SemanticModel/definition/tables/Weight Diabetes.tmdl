@@ -1,0 +1,26 @@
+table 'Weight Diabetes'
+	lineageTag: 823c460a-fd18-454f-8381-5d972e20e683
+
+	measure 'Weight Diabetes Value' = SELECTEDVALUE('Weight Diabetes'[Weight Diabetes], 15)
+		formatString: 0
+		lineageTag: 13bf4ab2-dc7c-468e-9f4b-31f70aa6e7a3
+
+	column 'Weight Diabetes'
+		formatString: 0
+		lineageTag: 045d8cb1-f062-42e1-9614-61a4f9dc9d3f
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition 'Weight Diabetes' = calculated
+		mode: import
+		source = GENERATESERIES(0, 50, 5)
+
+	annotation PBI_Id = 0b249aeef81f4d06a84e2cf3b6170c37
+

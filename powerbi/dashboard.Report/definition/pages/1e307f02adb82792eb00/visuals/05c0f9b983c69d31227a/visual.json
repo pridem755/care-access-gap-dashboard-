@@ -1,0 +1,186 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "05c0f9b983c69d31227a",
+  "position": {
+    "x": 17.012658227848103,
+    "y": 21.873417721518987,
+    "z": 0,
+    "height": 267.34177215189874,
+    "width": 622.17721518987344,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGeography"
+                    }
+                  },
+                  "Property": "locality_name"
+                }
+              },
+              "queryRef": "DimGeography.locality_name",
+              "nativeQueryRef": "locality_name"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "FactSupply"
+                        }
+                      },
+                      "Property": "supply_sites"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(FactSupply.supply_sites)",
+              "nativeQueryRef": "Sum of supply_sites"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Population"
+                }
+              },
+              "queryRef": "_Measures.Population",
+              "nativeQueryRef": "Population"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Uninsured People"
+                }
+              },
+              "queryRef": "_Measures.Uninsured People",
+              "nativeQueryRef": "Uninsured People"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Poverty Universe"
+                }
+              },
+              "queryRef": "_Measures.Poverty Universe",
+              "nativeQueryRef": "Poverty Universe"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "People in Poverty"
+                }
+              },
+              "queryRef": "_Measures.People in Poverty",
+              "nativeQueryRef": "People in Poverty"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Supply Locations"
+                }
+              },
+              "queryRef": "_Measures.Supply Locations",
+              "nativeQueryRef": "Supply Locations"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Active Sites Any Type"
+                }
+              },
+              "queryRef": "_Measures.Active Sites Any Type",
+              "nativeQueryRef": "Active Sites Any Type"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Localities"
+                }
+              },
+              "queryRef": "_Measures.Localities",
+              "nativeQueryRef": "Localities"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Locations per 100k Residents"
+                }
+              },
+              "queryRef": "_Measures.Locations per 100k Residents",
+              "nativeQueryRef": "Locations per 100k Residents"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Supply Locations"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,106 @@
+table FactPLACES
+	lineageTag: 5ea42f8c-c294-4348-a825-3973a8c16b27
+
+	column fips
+		dataType: string
+		isHidden
+		lineageTag: f9d2a602-801f-4e85-925f-661ff819b57f
+		summarizeBy: none
+		sourceColumn: fips
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column diabetes_pct
+		dataType: double
+		lineageTag: b4f3e0c2-ec0f-4233-8f74-13d4027e586b
+		summarizeBy: sum
+		sourceColumn: diabetes_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column diabetes_ci_low
+		dataType: double
+		lineageTag: e857851b-cb21-4a6b-ad4f-ea4ab4c66202
+		summarizeBy: sum
+		sourceColumn: diabetes_ci_low
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column diabetes_ci_high
+		dataType: double
+		lineageTag: 5aac9f60-30dc-4055-81b9-10b46e7e62c4
+		summarizeBy: sum
+		sourceColumn: diabetes_ci_high
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column diabetes_data_year
+		dataType: int64
+		formatString: 0
+		lineageTag: cc2d3255-0f2a-4844-a722-5d5699e8b035
+		summarizeBy: sum
+		sourceColumn: diabetes_data_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column high_blood_pressure_pct
+		dataType: double
+		lineageTag: 8caf3a45-61df-480c-95e4-6b33a1329595
+		summarizeBy: sum
+		sourceColumn: high_blood_pressure_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column high_blood_pressure_ci_low
+		dataType: double
+		lineageTag: 2500aaad-24bb-4148-a33a-f467b95d06ef
+		summarizeBy: sum
+		sourceColumn: high_blood_pressure_ci_low
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column high_blood_pressure_ci_high
+		dataType: double
+		lineageTag: c8a04fa1-bbe8-4a8f-b00c-7466eead2d94
+		summarizeBy: sum
+		sourceColumn: high_blood_pressure_ci_high
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column high_blood_pressure_data_year
+		dataType: int64
+		formatString: 0
+		lineageTag: d456f7f8-4c48-4d30-b0be-f4cf1466181e
+		summarizeBy: sum
+		sourceColumn: high_blood_pressure_data_year
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactPLACES = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "places_va.csv"),[Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"fips", type text}, {"diabetes_pct", type number}, {"diabetes_ci_low", type number}, {"diabetes_ci_high", type number}, {"diabetes_data_year", Int64.Type}, {"high_blood_pressure_pct", type number}, {"high_blood_pressure_ci_low", type number}, {"high_blood_pressure_ci_high", type number}, {"high_blood_pressure_data_year", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
