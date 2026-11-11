@@ -1,6 +1,6 @@
 # Data dictionary
 
-This document describes the five tables in `data/processed/`. They are produced by
+This document describes the six tables in `data/processed/`. They are produced by
 `python -m scripts.clean_data` and checked by `python -m scripts.validate_data`. If a column is added
 or renamed in the code, this document must be updated too; one of the tests checks that every column
 is listed here.
@@ -16,7 +16,7 @@ genuinely has zero sites.
 
 All tables are linked by the `fips` column. `dim_geography` has one row per locality, and each of the
 other tables connects to it on `fips`. `acs_va`, `places_va` and `fact_supply` also have one row per
-locality, while `hrsa_sites_va` can have several rows for the same locality.
+locality, while `hrsa_sites_va` and `supply_duplicates` can have several rows for the same locality.
 
 Tables must never be linked by locality name. Virginia has four counties and cities that share a
 name: Fairfax (51059 and 51600), Franklin (51067 and 51620), Richmond (51159 and 51760) and Roanoke
@@ -109,7 +109,9 @@ the supply measure, so that it is clear which sites were left out and why. Filte
 | `latitude` | Decimal number | Latitude in decimal degrees, based on the site address. | Geocoding Artifact Address Primary Y Coordinate |
 | `longitude` | Decimal number | Longitude in decimal degrees, based on the site address. | Geocoding Artifact Address Primary X Coordinate |
 | `fips_matched` | True/False | True when the site's code is one of the 133 localities. | Calculated |
-| `in_supply_measure` | True/False | True when the site is counted in `fact_supply`. The methodology gives the rule. | Calculated |
+| `in_supply_measure` | True/False | True when the site meets the supply rule. The methodology gives the rule. | Calculated |
+| `duplicate_key` | Text | The locality code, address and site name joined with a vertical bar, after lowercasing and removing periods, commas, apostrophes, # signs and extra spaces. Records with the same key are treated as one clinic. If the address or the name is blank, the key is the locality code and the site ID instead, so the record never matches another. Used only for matching; the address and name columns keep their original text. | Calculated |
+| `counted_once` | True/False | True for the one record of each `duplicate_key` that is counted in `fact_supply`, chosen as the lowest `site_id` among the records that meet the supply rule. Always False when `in_supply_measure` is False. | Calculated |
 
 ## fact_supply.csv
 
@@ -118,8 +120,25 @@ One row per locality, including localities that have no health center sites.
 | Column | Type | Meaning |
 |--------|------|---------|
 | `fips` | Text | Locality code, linking to `dim_geography`. |
-| `supply_sites` | Whole number | Number of active, permanent sites that serve patients. This is the main supply measure. |
-| `active_sites_any_type` | Whole number | Number of active sites of any kind, including administrative offices, mobile vans and seasonal sites. Shown for context. |
+| `supply_sites` | Whole number | Number of distinct active, permanent sites that serve patients, with a clinic listed under more than one site ID counted once. This equals the number of rows in `hrsa_sites_va` where `counted_once` is True. This is the main supply measure. |
+| `active_sites_any_type` | Whole number | Number of active site records of any kind, including administrative offices, mobile vans and seasonal sites. Duplicate records are not merged here. Shown for context. |
+
+## supply_duplicates.csv
+
+The site records that were merged in the supply count. It lists every site that meets the supply rule
+and shares its `duplicate_key` with at least one other such site, so each group has two or more rows.
+The file is written on every run. When there are no duplicates it has only its header row, and the
+validation report says "0 duplicate site records".
+
+| Column | Type | Meaning |
+|--------|------|---------|
+| `duplicate_key` | Text | The shared key, as in `hrsa_sites_va`. |
+| `site_id` | Text | Site ID of the record. |
+| `site_name` | Text | Name of the site, as HRSA wrote it. |
+| `program_type` | Text | Whether the record belongs to a federally funded health center or a Look-Alike. |
+| `address` | Text | Street address, as HRSA wrote it. |
+| `fips` | Text | Locality code, linking to `dim_geography`. |
+| `counted_once` | True/False | True for the record that is counted, False for the records merged into it. |
 
 ---
 

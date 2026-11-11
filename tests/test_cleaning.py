@@ -293,6 +293,108 @@ def test_edited_raw_file_is_refused(raw_folder):
         raw_inputs.load_input("rucc", raw, log)
 
 
+# ---------- supply duplicates: fips + address + site name counted once ----------
+
+def located(site_id, fips, name, address, **kwargs):
+    """Return a raw HRSA row with a site name and address."""
+    return {**site(site_id, fips, **kwargs), "Site Name": name, "Site Address": address}
+
+
+def build_located(rows):
+    sites = build_hrsa_supply.sites_table(frame(rows), LOCALITIES)
+    fact = build_hrsa_supply.supply_table(sites, LOCALITIES).set_index("fips")
+    return sites.set_index("site_id"), fact
+
+
+def test_same_name_and_address_with_different_ids_counts_once_keeping_lowest_id():
+    sites, fact = build_located([
+        located("BPS-LAL-2", RICHMOND_CITY, "Park View", "2420 Memorial Ave"),
+        located("BPS-H80-9", RICHMOND_CITY, "Park View", "2420 Memorial Ave"),
+    ])
+    assert fact.loc[RICHMOND_CITY, "supply_sites"] == 1
+    assert sites.loc["BPS-H80-9", "counted_once"] and not sites.loc["BPS-LAL-2", "counted_once"]
+    assert len(sites) == 2
+
+
+def test_case_spacing_and_punctuation_do_not_create_a_second_site():
+    sites, fact = build_located([
+        located("A", RICHMOND_CITY, "Park View,", "2420 Memorial Ave."),
+        located("B", RICHMOND_CITY, "PARK  VIEW", " 2420  memorial ave"),
+    ])
+    assert fact.loc[RICHMOND_CITY, "supply_sites"] == 1
+    assert sites.loc["A", "site_name"] == "Park View," and sites.loc["B", "address"] == "2420  memorial ave"
+
+
+@pytest.mark.parametrize("second", [
+    ("Dental Center", "4038 Main St", RICHMOND_CITY),
+    ("Medical Center", "9 Other Rd", RICHMOND_CITY),
+    ("Medical Center", "4038 Main St", RICHMOND_COUNTY),
+], ids=["different name", "different address", "different fips"])
+def test_sites_that_differ_in_name_address_or_fips_both_count(second):
+    name, address, fips = second
+    _, fact = build_located([
+        located("A", RICHMOND_CITY, "Medical Center", "4038 Main St"),
+        located("B", fips, name, address),
+    ])
+    assert fact["supply_sites"].sum() == 2
+
+
+def test_a_mobile_van_sharing_the_key_never_counts():
+    sites, fact = build_located([
+        located("A", RICHMOND_CITY, "Clinic", "1 Main St", location_type="Mobile Van"),
+        located("B", RICHMOND_CITY, "Clinic", "1 Main St"),
+    ])
+    assert fact.loc[RICHMOND_CITY, "supply_sites"] == 1
+    assert sites.loc["B", "counted_once"] and not sites.loc["A", "counted_once"]
+    assert build_hrsa_supply.duplicates_table(sites.reset_index()).empty
+
+
+def test_no_duplicates_leaves_counts_unchanged_and_reports_zero(caplog):
+    rows = [located(sid, RICHMOND_CITY, f"Clinic {sid}", f"{n} Main St") for n, sid in enumerate("ABC")]
+    sites, fact = build_located(rows)
+    assert fact.loc[RICHMOND_CITY, "supply_sites"] == sites["in_supply_measure"].sum() == 3
+    assert build_hrsa_supply.duplicates_table(sites.reset_index()).empty
+    with caplog.at_level("INFO", logger="scripts.clean_data"):
+        clean_data.log_duplicates(sites.reset_index())
+    assert build_hrsa_supply.duplicate_summary(sites.reset_index())["duplicate site records merged"] == 0
+    assert "0 duplicate site records" in caplog.text
+
+
+@pytest.mark.parametrize("name, address", [("Clinic", ""), ("", "1 Main St"), (" , ", "#")])
+def test_blank_address_or_name_never_matches_and_is_reported(name, address):
+    sites, fact = build_located([
+        located("A", RICHMOND_CITY, name, address),
+        located("B", RICHMOND_CITY, name, address),
+    ])
+    assert fact.loc[RICHMOND_CITY, "supply_sites"] == 2
+    summary = build_hrsa_supply.duplicate_summary(sites.reset_index())
+    assert summary["records excluded from matching (blank address or name)"] == 2
+    assert summary["duplicate site records merged"] == 0
+
+
+def test_duplicates_table_lists_every_record_in_a_merged_group():
+    sites, _ = build_located([
+        located("B", RICHMOND_CITY, "Clinic", "1 Main St"),
+        located("A", RICHMOND_CITY, "clinic", "1 main st"),
+        located("C", RICHMOND_CITY, "Other", "2 Main St"),
+    ])
+    table = build_hrsa_supply.duplicates_table(sites.reset_index())
+    assert table["site_id"].tolist() == ["A", "B"] and table["counted_once"].tolist() == [True, False]
+    summary = build_hrsa_supply.duplicate_summary(sites.reset_index())
+    assert summary == {
+        "counted site records": 3, "distinct counted sites": 2, "duplicate site records merged": 1,
+        "localities affected": 1, "records excluded from matching (blank address or name)": 0,
+    }
+
+
+def test_active_sites_any_type_still_counts_every_record():
+    _, fact = build_located([
+        located("A", RICHMOND_CITY, "Clinic", "1 Main St"),
+        located("B", RICHMOND_CITY, "Clinic", "1 Main St"),
+    ])
+    assert fact.loc[RICHMOND_CITY, "active_sites_any_type"] == 2
+
+
 def test_raw_file_failing_its_checks_is_refused(raw_folder):
     raw, log = raw_folder
     path = raw / config.SOURCES["rucc"].filename(TODAY)
@@ -307,7 +409,8 @@ def test_full_run_writes_five_tables_with_text_fips(raw_folder, tmp_path):
     out = tmp_path / "processed"
     assert clean_data.main([], raw, log, out) == 0
     written = sorted(p.name for p in out.iterdir())
-    assert written == ["acs_va.csv", "dim_geography.csv", "fact_supply.csv", "hrsa_sites_va.csv", "places_va.csv"]
+    assert written == ["acs_va.csv", "dim_geography.csv", "fact_supply.csv", "hrsa_sites_va.csv", "places_va.csv",
+                       "supply_duplicates.csv"]
     for name in ("dim_geography", "acs_va", "places_va", "fact_supply"):
         table = pd.read_csv(out / f"{name}.csv", dtype={"fips": str})
         assert len(table) == 133 and table["fips"].is_unique and table["fips"].str.fullmatch(r"51\d{3}").all()

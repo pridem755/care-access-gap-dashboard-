@@ -12,6 +12,7 @@ DIM_COLUMNS = [
     "rucc_code", "rucc_description", "population_2020", "land_area_sq_mi",
 ]
 FACT_SUPPLY_COLUMNS = ["fips", "supply_sites", "active_sites_any_type"]
+SUPPLY_DUPLICATES_COLUMNS = ["duplicate_key", "site_id", "site_name", "program_type", "address", "fips", "counted_once"]
 
 
 def acs_columns() -> list[str]:
@@ -28,7 +29,7 @@ def places_columns() -> list[str]:
 
 def site_columns() -> list[str]:
     """Return the columns of hrsa_sites_va."""
-    return [*config.HRSA_SITE_FIELDS.values(), "fips_matched", "in_supply_measure"]
+    return [*config.HRSA_SITE_FIELDS.values(), "fips_matched", "in_supply_measure", "duplicate_key", "counted_once"]
 
 
 def expected_columns() -> dict[str, list[str]]:
@@ -39,6 +40,7 @@ def expected_columns() -> dict[str, list[str]]:
         "places_va": places_columns(),
         config.SITE_TABLE: site_columns(),
         "fact_supply": FACT_SUPPLY_COLUMNS,
+        "supply_duplicates": SUPPLY_DUPLICATES_COLUMNS,
     }
 
 

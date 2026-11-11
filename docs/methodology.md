@@ -51,7 +51,7 @@ dataset, because the CDC website otherwise returns only the first 1,000 rows wit
 
 ## Cleaning
 
-`python -m scripts.clean_data` turns the raw files into the five tables in `data/processed/`. It
+`python -m scripts.clean_data` turns the raw files into the six tables in `data/processed/`. It
 works in five steps.
 
 First, it picks the most recent download of each source and makes sure the file is still there,
@@ -68,14 +68,14 @@ localities by FIPS code.
 
 Fourth, it checks that every table has exactly one row for each locality.
 
-Finally, it writes all five tables, but only if every one of them passed. If anything failed, the
+Finally, it writes all six tables, but only if every one of them passed. If anything failed, the
 files already in `data/processed/` are left as they were, so the folder never holds a mix of old and
 new results.
 
 `python -m scripts.validate_data` then reads the finished files again, the way Power BI will, and
 checks them separately from the cleaning code. It also checks that the tables agree with each other,
-for example that the site counts in `fact_supply` add up to the number of counted sites in
-`hrsa_sites_va`. The results are written to the [validation report](validation_report.md).
+for example that the site counts in `fact_supply` match the sites marked `counted_once` in
+`hrsa_sites_va`, both in total and for each locality. The results are written to the [validation report](validation_report.md).
 
 ## Health insurance and poverty
 
@@ -146,15 +146,33 @@ Its site type is either Service Delivery Site or Administrative/Service Delivery
 see patients, while purely administrative offices do not. Finally, its FIPS code must be one of the
 133 localities. These rules are set in `scripts/config.py` and can be changed there.
 
+HRSA sometimes lists the same clinic more than once under different site IDs. This happens, for
+example, while a Look-Alike health center becomes federally funded, when its old record and its new
+record can both appear for a time. These records are legitimate, but they describe one clinic. So among
+the sites that meet the rules above, each combination of locality, address and site name is counted
+once. Before comparing, the address and name are lowercased, periods, commas, apostrophes and # signs
+are removed, and repeated spaces are reduced to one. Nothing else is changed: street names are not
+abbreviated and suite numbers are kept. The record with the lowest site ID is the one counted, so the
+result is the same on every run.
+
+The name is part of the match on purpose. A medical center and a dental center in the same building
+are different services, and both count. If a record's address or name is blank, it is never matched
+with another record, because two blanks only show that information is missing. The validation report
+says how many records were left out of matching for this reason.
+
+No rows are removed from the site table. The records that were merged are listed in
+`data/processed/supply_duplicates.csv` and in the validation report after every run.
+
 In the list downloaded on 10 November 2026, Virginia had 247 sites. Of these, 186 met the definition:
 157 service delivery sites and 29 combined administrative and service delivery sites. The other 61
 were left out, 23 because they were purely administrative and 38 because they were mobile or
-seasonal. The 186 counted sites were spread across 81 localities, and the remaining 52 localities had
-none.
+seasonal. Two clinics in Lynchburg were each listed twice, under an old Look-Alike ID and a new
+federally funded ID, so the 186 records describe 184 distinct sites. These were spread across 81
+localities, and the remaining 52 localities had none.
 
 The supply table starts from all 133 localities and fills in zero where there are no sites, because
-having no site means zero supply rather than unknown supply. It also gives a count of all active sites
-of any kind, for context.
+having no site means zero supply rather than unknown supply. It also gives a count of all active site
+records of any kind, for context, without merging duplicates.
 
 ## Rural and urban classification
 

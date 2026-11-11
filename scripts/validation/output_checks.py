@@ -150,12 +150,17 @@ def site_checks(sites: pd.DataFrame, reference: set[str]) -> list[CheckResult]:
     box = config.STATE_BOUNDING_BOX
     lat, lon = numbers(sites, "latitude"), numbers(sites, "longitude")
     outside = sites[matched & ~(lat.between(*box["latitude"]) & lon.between(*box["longitude"]))]
+    counted_once = sites[sites["counted_once"] == "True"]
+    wrongly_counted = counted_once[counted_once["in_supply_measure"] != "True"]
+    repeated_keys = counted_once.loc[counted_once["duplicate_key"].duplicated(), "duplicate_key"]
     return [
         result("site_id is unique", sorted(set(sites.loc[sites["site_id"].duplicated(), "site_id"]))[:3]),
         result("supply sites are active, permanent, service-delivery", rule_breaks),
         result("fips_matched agrees with dim_geography", wrong_match["site_id"].head(3).tolist()),
         result("no unmatched site is counted", unmatched_counted["site_id"].head(3).tolist()),
         result("matched sites have coordinates inside Virginia", outside["site_id"].head(3).tolist()),
+        result("counted_once is True only for supply sites", wrongly_counted["site_id"].head(3).tolist()),
+        result("each duplicate_key is counted at most once", sorted(set(repeated_keys))[:3]),
     ]
 
 
@@ -163,13 +168,45 @@ def supply_checks(fact: pd.DataFrame, sites: pd.DataFrame) -> list[CheckResult]:
     """Check counts are whole, never blank (rule 5), and agree with the site table."""
     count_cols = ["supply_sites", "active_sites_any_type"]
     not_whole = [c for c in count_cols if not fact[c].str.fullmatch(WHOLE_NUMBER).all()]
-    total = int(numbers(fact, "supply_sites").sum())
-    flagged = int((sites["in_supply_measure"] == "True").sum())
+    supply = numbers(fact, "supply_sites").set_axis(fact["fips"])
+    total = int(supply.sum())
+    counted_once = int((sites["counted_once"] == "True").sum())
+    flagged = sites[sites["in_supply_measure"] == "True"].groupby("fips")
+    distinct_keys = flagged["duplicate_key"].nunique().reindex(supply.index, fill_value=0)
+    records = flagged.size().reindex(supply.index, fill_value=0)
     return [
         result("site counts are whole numbers, never blank", not_whole),
         check_not_greater(fact, [("supply_sites", "active_sites_any_type")], "supply_sites <= active_sites_any_type"),
-        result("supply_sites total equals flagged sites", [] if total == flagged else [f"{total} vs {flagged}"]),
+        result("supply_sites total equals counted_once sites",
+               [] if total == counted_once else [f"{total} vs {counted_once}"]),
+        result("supply_sites equals distinct duplicate_key per locality",
+               supply.index[supply != distinct_keys].tolist()[:3]),
+        result("supply_sites <= supply site records per locality", supply.index[supply > records].tolist()[:3]),
     ]
+
+
+def duplicates_checks(duplicates: pd.DataFrame, sites: pd.DataFrame) -> list[CheckResult]:
+    """Check supply_duplicates lists exactly the supply sites that share a duplicate_key."""
+    flagged = sites[sites["in_supply_measure"] == "True"]
+    expected = set(flagged.loc[flagged["duplicate_key"].duplicated(keep=False), "site_id"])
+    listed = set(duplicates["site_id"])
+    problems = [f"missing {sorted(expected - listed)[:3]}"] if expected - listed else []
+    problems += [f"extra {sorted(listed - expected)[:3]}"] if listed - expected else []
+    return [result("lists exactly the supply sites sharing a duplicate_key", problems)]
+
+
+def duplicate_summary(sites: pd.DataFrame) -> dict[str, int]:
+    """Summarize duplicate merging from the written site table."""
+    flagged = sites[sites["in_supply_measure"] == "True"]
+    merged = flagged[flagged["counted_once"] != "True"]
+    return {
+        "counted site records": len(flagged),
+        "distinct counted sites": int((flagged["counted_once"] == "True").sum()),
+        "duplicate site records merged": len(merged),
+        "localities affected": merged["fips"].nunique(),
+        "records excluded from matching (blank address or name)":
+            int((flagged["duplicate_key"] == flagged["fips"] + "|" + flagged["site_id"]).sum()),
+    }
 
 
 def run_all(tables: Tables) -> dict[str, list[CheckResult]]:
@@ -187,6 +224,7 @@ def run_all(tables: Tables) -> dict[str, list[CheckResult]]:
     results["places_va"] += places_checks(tables["places_va"])
     results[config.SITE_TABLE] += site_checks(tables[config.SITE_TABLE], reference)
     results["fact_supply"] += supply_checks(tables["fact_supply"], tables[config.SITE_TABLE])
+    results["supply_duplicates"] += duplicates_checks(tables["supply_duplicates"], tables[config.SITE_TABLE])
     return results
 
 

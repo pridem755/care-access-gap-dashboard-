@@ -47,7 +47,7 @@ python -m scripts.validate_data
 ```
 
 The first command downloads all six sources into `data/raw/` and records each download in
-`data/raw/download_log.csv`. The second builds the five tables in `data/processed/`. The third checks
+`data/raw/download_log.csv`. The second builds the six tables in `data/processed/`. The third checks
 those tables and writes the results into `docs/validation_report.md`. If a step fails, it says why
 and leaves the existing files as they were.
 
@@ -80,7 +80,7 @@ The data dictionary in `docs/data_dictionary.md` describes every column, and the
 
 ## Loading the data into Power BI
 
-Load the five CSV files from `data/processed/`. In Power Query, change the type of every `fips`
+Load the six CSV files from `data/processed/`. In Power Query, change the type of every `fips`
 column to Text before doing anything else. Power BI's automatic type detection would otherwise turn
 codes like 51001 into numbers, and the relationships between tables would break.
 

@@ -20,6 +20,7 @@ def render(
     files: list[tuple[str, int, str]],
     results: dict[str, list[CheckResult]],
     missing: list[tuple[str, str, int, int]],
+    duplicates: tuple[dict[str, int], list[dict[str, str]]] | None = None,
 ) -> str:
     """Return the automated section as Markdown."""
     all_results = [r for rs in results.values() for r in rs]
@@ -48,9 +49,26 @@ def render(
         "| Table | Column | Missing | Rows |",
         "|-------|--------|--------:|-----:|",
         *([f"| {t} | {c} | {n} | {rows} |" for t, c, n, rows in missing] or ["| - | - | 0 | - |"]),
+        *(duplicate_lines(*duplicates) if duplicates else []),
         END,
     ]
     return "\n".join(lines)
+
+
+def duplicate_lines(summary: dict[str, int], rows: list[dict[str, str]]) -> list[str]:
+    """Return the supply duplicates summary and table as Markdown lines."""
+    lines = ["", "Supply duplicates (same locality, address and site name, counted once):", "",
+             "| Measure | Count |", "|---------|------:|",
+             *[f"| {cell(label)} | {value} |" for label, value in summary.items()], ""]
+    if not rows:
+        return [*lines, "0 duplicate site records."]
+    columns = list(rows[0])
+    return [
+        *lines,
+        "| " + " | ".join(columns) + " |",
+        "|" + "|".join("---" for _ in columns) + "|",
+        *["| " + " | ".join(cell(row[c]) for c in columns) + " |" for row in rows],
+    ]
 
 
 def update(report_path: Path, section: str) -> None:
